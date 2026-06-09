@@ -1,0 +1,182 @@
+[
+  {
+    "id": "a1b2c3d4-e5f6-4a5b-8c7d-9e0f1a2b3c4d",
+    "sku": "FURN-001",
+    "name": "Modern Leather Sofa",
+    "description": "A sleek, comfortable top-grain leather sofa in dark navy. Perfect for modern living rooms.",
+    "category": "furniture",
+    "price": 899.99,
+    "image_urls": ["https://picsum.photos/seed/FURN-001/400/400"]
+  },
+  {
+    "id": "b2c3d4e5-f6a7-5b6c-9d0e-1f2a3b4c5d6e",
+    "sku": "FURN-002",
+    "name": "Oak Dining Table",
+    "description": "Solid oak dining table for six. Minimalist design with a natural finish.",
+    "category": "furniture",
+    "price": 450.00,
+    "image_urls": ["https://picsum.photos/seed/FURN-002/400/400"]
+  },
+  {
+    "id": "c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f",
+    "sku": "FURN-003",
+    "name": "Ergonomic Office Chair",
+    "description": "",
+    "category": "furniture",
+    "price": 199.50,
+    "image_urls": ["https://picsum.photos/seed/FURN-003/400/400"]
+  },
+  {
+    "id": "d4e5f6a7-b8c9-7d8e-1f2a-3b4c5d6e7f8a",
+    "sku": "FURN-004",
+    "name": "Geometric Bookshelf",
+    "description": "Tall wooden bookshelf with asymmetrical compartments.",
+    "category": "furniture",
+    "price": 120.00,
+    "image_urls": ["https://picsum.photos/seed/FURN-004/400/400"]
+  },
+  {
+    "id": "e5f6a7b8-c9d0-8e9f-2a3b-4c5d6e7f8a9b",
+    "sku": "ELEC-001",
+    "name": "Wireless Noise-Canceling Headphones",
+    "description": "Over-ear headphones with active noise cancellation and 30-hour battery life. Matte black.",
+    "category": "electronics",
+    "price": 299.99,
+    "image_urls": ["https://picsum.photos/seed/ELEC-001/400/400"]
+  },
+  {
+    "id": "f6a7b8c9-d0e1-9f0a-3b4c-5d6e7f8a9b0c",
+    "sku": "ELEC-002",
+    "name": "4K Smart TV 55-inch",
+    "description": "",
+    "category": "electronics",
+    "price": 500.00,
+    "image_urls": ["https://picsum.photos/seed/ELEC-002/400/400"]
+  },
+  {
+    "id": "a7b8c9d0-e1f2-0a1b-4c5d-6e7f8a9b0c1d",
+    "sku": "ELEC-003",
+    "name": "Mechanial Gaming Keyboard",
+    "description": "RGB backlit mechanical keyboard with tactile blue switches.",
+    "category": "electronics",
+    "price": 89.99,
+    "image_urls": ["https://picsum.photos/seed/ELEC-003/400/400"]
+  },
+  {
+    "id": "b8c9d0e1-f2a3-1b2c-5d6e-7f8a9b0c1d2e",
+    "sku": "ELEC-004",
+    "name": "Portable Bluetooth Speaker",
+    "description": "Waterproof portable speaker with deep bass.",
+    "category": "electronics",
+    "price": 45.00,
+    "image_urls": ["https://picsum.photos/seed/ELEC-004/400/400"]
+  },
+  {
+    "id": "c9d0e1f2-a3b4-2c3d-6e7f-8a9b0c1d2e3f",
+    "sku": "CLOT-001",
+    "name": "Men's Winter Parka",
+    "description": "Heavy-duty winter coat with faux fur hood. Olive green.",
+    "category": "clothing",
+    "price": 149.99,
+    "image_urls": ["https://picsum.photos/seed/CLOT-001/400/400"]
+  },
+  {
+    "id": "d0e1f2a3-b4c5-3d4e-7f8a-9b0c1d2e3f4g",
+    "sku": "CLOT-002",
+    "name": "Women's Running Shoes",
+    "description": "Lightweight breathable sneakers for road running. Neon pink and white.",
+    "category": "clothing",
+    "price": 110.00,
+    "image_urls": ["https://picsum.photos/seed/CLOT-002/400/400"]
+  },
+  {
+    "id": "e1f2a3b4-c5d6-4e5f-8a9b-0c1d2e3f4g5h",
+    "sku": "CLOT-003",
+    "name": "Vintage Denim Jacket",
+    "description": "",
+    "category": "clothing",
+    "price": 75.00,
+    "image_urls": ["https://picsum.photos/seed/CLOT-003/400/400"]
+  },
+  {
+    "id": "f2a3b4c5-d6e7-5f6a-9b0c-1d2e3f4g5h6i",
+    "sku": "CLOT-004",
+    "name": "Cashmere Blend Scarf",
+    "description": "Super soft scarf, perfect for autumn. Charcoal grey.",
+    "category": "clothing",
+    "price": 35.00,
+    "image_urls": ["https://picsum.photos/seed/CLOT-004/400/400"]
+  },
+  {
+    "id": "a3b4c5d6-e7f8-6a7b-0c1d-2e3f4g5h6i7j",
+    "sku": "KITCH-001",
+    "name": "Cast Iron Skillet",
+    "description": "10-inch pre-seasoned cast iron pan for perfect searing.",
+    "category": "kitchenware",
+    "price": 29.99,
+    "image_urls": ["https://picsum.photos/seed/KITCH-001/400/400"]
+  },
+  {
+    "id": "b4c5d6e7-f8a9-7b8c-1d2e-3f4g5h6i7j8k",
+    "sku": "KITCH-002",
+    "name": "Espresso Machine",
+    "description": "Semi-automatic espresso maker with frothing wand.",
+    "category": "kitchenware",
+    "price": 350.00,
+    "image_urls": ["https://picsum.photos/seed/KITCH-002/400/400"]
+  },
+  {
+    "id": "c5d6e7f8-a9b0-8c9d-2e3f-4g5h6i7j8k9l",
+    "sku": "KITCH-003",
+    "name": "Ceramic Knife Set",
+    "description": "",
+    "category": "kitchenware",
+    "price": 49.00,
+    "image_urls": ["https://picsum.photos/seed/KITCH-003/400/400"]
+  },
+  {
+    "id": "d6e7f8a9-b0c1-9d0e-3f4g-5h6i7j8k9l0m",
+    "sku": "KITCH-004",
+    "name": "Bamboo Salad Bowls",
+    "description": "Set of 3 eco-friendly bamboo bowls.",
+    "category": "kitchenware",
+    "price": 24.50,
+    "image_urls": ["https://picsum.photos/seed/KITCH-004/400/400"]
+  },
+  {
+    "id": "e7f8a9b0-c1d2-0e1f-4g5h-6i7j8k9l0m1n",
+    "sku": "SPORT-001",
+    "name": "Yoga Mat",
+    "description": "Non-slip alignment yoga mat, 6mm thickness. Teal.",
+    "category": "sports",
+    "price": 35.00,
+    "image_urls": ["https://picsum.photos/seed/SPORT-001/400/400"]
+  },
+  {
+    "id": "f8a9b0c1-d2e3-1f2a-5h6i-7j8k9l0m1n2o",
+    "sku": "SPORT-002",
+    "name": "Adjustable Dumbbells",
+    "description": "Pair of adjustable weights up to 50 lbs each.",
+    "category": "sports",
+    "price": 199.00,
+    "image_urls": ["https://picsum.photos/seed/SPORT-002/400/400"]
+  },
+  {
+    "id": "a9b0c1d2-e3f4-2a3b-6i7j-8k9l0m1n2o3p",
+    "sku": "SPORT-003",
+    "name": "Tennis Racket",
+    "description": "",
+    "category": "sports",
+    "price": 85.00,
+    "image_urls": ["https://picsum.photos/seed/SPORT-003/400/400"]
+  },
+  {
+    "id": "b0c1d2e3-f4g5-3b4c-7j8k-9l0m1n2o3p4q",
+    "sku": "SPORT-004",
+    "name": "Camping Tent",
+    "description": "4-person dome tent with rain fly. Easy setup.",
+    "category": "sports",
+    "price": 130.00,
+    "image_urls": ["https://picsum.photos/seed/SPORT-004/400/400"]
+  }
+]

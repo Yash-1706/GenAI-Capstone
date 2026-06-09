@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+pydantic>=2
+transformers
+torch
+Pillow
+chromadb
+sqlalchemy[asyncio]
+aiosqlite
+anthropic
+python-multipart
+PyYAML
+sentence-transformers
+python-dotenv
+pytest
+pytest-asyncio

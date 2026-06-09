@@ -1,0 +1,7 @@
+fusion_alpha: 0.6
+clip_model: openai/clip-vit-base-patch32
+text_model: sentence-transformers/all-MiniLM-L6-v2
+reranker_model: cross-encoder/ms-marco-MiniLM-L-6-v2
+top_k_default: 10
+rerank_pool: 50
+abandonment_timeout_seconds: 300
