@@ -4,14 +4,22 @@ import { Search, UploadCloud, SlidersHorizontal, Image as ImageIcon, Type, Spark
 import { apiClient } from '../api/client';
 import { useStore } from '../store/useStore';
 
+type SearchModality = 'text' | 'image' | 'combined';
+
+const searchModes: Array<{ id: SearchModality; icon: typeof Type; label: string }> = [
+  { id: 'text', icon: Type, label: 'Text Search' },
+  { id: 'image', icon: ImageIcon, label: 'Visual Search' },
+  { id: 'combined', icon: Sparkles, label: 'Multimodal Fusion' }
+];
+
 export default function SearchPage() {
-  const [modality, setModality] = useState<'text' | 'image' | 'combined'>('text');
+  const [modality, setModality] = useState<SearchModality>('text');
   const [query, setQuery] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [fusionWeight, setFusionWeight] = useState(0.6);
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   const navigate = useNavigate();
   const { setSearchResults } = useStore();
 
@@ -45,30 +53,26 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] w-full animate-in fade-in zoom-in-95 duration-700">
+    <div className="flex flex-col items-center justify-center min-h-[70vh] w-full page-enter">
       <div className="text-center mb-12 space-y-4">
-        <h1 className="font-display text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tight">
+        <h1 className="font-display text-5xl md:text-7xl font-black text-[#162321] dark:text-[#f8f4ea] tracking-tight">
           Find the <span className="text-gradient">impossible</span>.
         </h1>
-        <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">
+        <p className="text-lg md:text-xl text-stone-600 dark:text-stone-300 max-w-2xl mx-auto font-medium">
           Search with words, photos, or a powerful combination of both using multimodal intelligence.
         </p>
       </div>
-      
+
       <div className="w-full max-w-3xl glass-card rounded-3xl p-2 sm:p-4">
-        <div className="flex space-x-2 mb-6 p-2 bg-slate-100/50 dark:bg-slate-800/50 rounded-2xl relative overflow-hidden">
-          {[
-            { id: 'text', icon: Type, label: 'Text Search' },
-            { id: 'image', icon: ImageIcon, label: 'Visual Search' },
-            { id: 'combined', icon: Sparkles, label: 'Multimodal Fusion' }
-          ].map((m) => (
+        <div className="flex space-x-2 mb-6 p-2 bg-stone-100/70 dark:bg-stone-900/50 rounded-2xl relative overflow-hidden">
+          {searchModes.map((m) => (
             <button
               key={m.id}
-              onClick={() => setModality(m.id as any)}
+              onClick={() => setModality(m.id)}
               className={`flex-1 py-3 px-4 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 ${
-                modality === m.id 
-                  ? 'bg-white dark:bg-slate-950 text-indigo-600 dark:text-indigo-400 shadow-md transform scale-[1.02]' 
-                  : 'text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-700/50'
+                modality === m.id
+                  ? 'bg-white dark:bg-[#121f1b] text-[#243d2d] dark:text-[#d79a5f] shadow-md transform scale-[1.02]'
+                  : 'text-stone-500 dark:text-stone-400 hover:bg-stone-200/60 dark:hover:bg-stone-800/60'
               }`}
             >
               <m.icon size={18} />
@@ -79,50 +83,50 @@ export default function SearchPage() {
 
         <div className="p-4 sm:p-6 space-y-6">
           {(modality === 'text' || modality === 'combined') && (
-            <div className="relative group">
+            <div className="relative group stagger-card">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Search className="text-slate-400 group-focus-within:text-indigo-500 transition-colors" size={24} />
+                <Search className="text-stone-400 group-focus-within:text-[#b86b2f] transition-colors" size={24} />
               </div>
               <input
                 type="text"
-                placeholder={modality === 'combined' ? "Describe the modifications..." : "What are you looking for?"}
+                placeholder={modality === 'combined' ? 'Describe the modifications...' : 'What are you looking for?'}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-14 pr-4 py-5 bg-slate-50 dark:bg-slate-900 border-2 border-transparent focus:border-indigo-500/50 dark:focus:border-indigo-500/50 rounded-2xl text-lg font-medium outline-none transition-all placeholder:text-slate-400 dark:text-white"
+                className="smooth-focus w-full pl-14 pr-4 py-5 bg-[#fffaf0] dark:bg-[#0f1b18] border-2 border-transparent focus:border-[#b86b2f]/60 dark:focus:border-[#d79a5f]/60 rounded-2xl text-lg font-medium outline-none placeholder:text-stone-400 dark:text-[#f8f4ea]"
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               />
             </div>
           )}
 
           {(modality === 'image' || modality === 'combined') && (
-            <div 
-              className={`relative border-3 border-dashed rounded-2xl p-10 text-center transition-all duration-300 cursor-pointer ${
-                file 
-                  ? 'border-indigo-400 bg-indigo-50/50 dark:border-indigo-500/50 dark:bg-indigo-900/10' 
-                  : 'border-slate-300 dark:border-slate-700 hover:border-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+            <div
+              className={`relative border-3 border-dashed rounded-2xl p-10 text-center transition-all duration-300 cursor-pointer stagger-card ${
+                file
+                  ? 'border-[#b86b2f] bg-[#d79a5f]/15 dark:border-[#d79a5f]/70 dark:bg-[#b86b2f]/10'
+                  : 'border-stone-300 dark:border-stone-700 hover:border-[#b86b2f] hover:bg-stone-50 dark:hover:bg-stone-800/50'
               }`}
               onClick={() => fileInputRef.current?.click()}
             >
-              <input 
-                type="file" 
-                hidden 
-                ref={fileInputRef} 
-                onChange={(e) => setFile(e.target.files?.[0] || null)} 
+              <input
+                type="file"
+                hidden
+                ref={fileInputRef}
+                onChange={(e) => setFile(e.target.files?.[0] || null)}
                 accept="image/*"
               />
               <div className="flex flex-col items-center justify-center space-y-4">
-                <div className={`p-4 rounded-full ${file ? 'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>
+                <div className={`p-4 rounded-full transition-transform duration-300 ${file ? 'bg-[#d79a5f]/25 dark:bg-[#b86b2f]/20 text-[#8d5f43] dark:text-[#d79a5f] scale-105' : 'bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400'}`}>
                   <UploadCloud size={32} />
                 </div>
                 {file ? (
                   <div>
-                    <p className="text-lg font-bold text-slate-800 dark:text-white">{file.name}</p>
-                    <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400 mt-1">Image selected</p>
+                    <p className="text-lg font-bold text-[#162321] dark:text-[#f8f4ea]">{file.name}</p>
+                    <p className="text-sm font-medium text-[#8d5f43] dark:text-[#d79a5f] mt-1">Image selected</p>
                   </div>
                 ) : (
                   <div>
-                    <p className="text-lg font-bold text-slate-700 dark:text-slate-300">Drag & drop or click to upload</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-500 mt-1">Supports JPG, PNG, WEBP</p>
+                    <p className="text-lg font-bold text-stone-700 dark:text-stone-300">Drag & drop or click to upload</p>
+                    <p className="text-sm text-stone-500 dark:text-stone-500 mt-1">Supports JPG, PNG, WEBP</p>
                   </div>
                 )}
               </div>
@@ -130,34 +134,36 @@ export default function SearchPage() {
           )}
 
           {modality === 'combined' && (
-            <div className="bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800">
-              <div className="flex items-center space-x-2 mb-4 text-slate-700 dark:text-slate-300 font-semibold">
+            <div className="bg-[#fffaf0] dark:bg-[#0f1b18] rounded-2xl p-6 border border-stone-100 dark:border-stone-800 stagger-card">
+              <div className="flex items-center space-x-2 mb-4 text-stone-700 dark:text-stone-300 font-semibold">
                 <SlidersHorizontal size={18} />
                 <span>Fusion Weight Balance</span>
               </div>
-              <div className="flex justify-between text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">
+              <div className="flex justify-between text-xs font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-3">
                 <span>Text Priority</span>
-                <span className="text-indigo-600 dark:text-indigo-400">{(fusionWeight * 100).toFixed(0)}% Visual</span>
+                <span className="text-[#8d5f43] dark:text-[#d79a5f]">{(fusionWeight * 100).toFixed(0)}% Visual</span>
                 <span>Visual Priority</span>
               </div>
-              <input 
-                type="range" 
-                min="0" max="1" step="0.1" 
-                value={fusionWeight} 
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.1"
+                value={fusionWeight}
                 onChange={(e) => setFusionWeight(parseFloat(e.target.value))}
-                className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                className="w-full h-2 bg-stone-200 dark:bg-stone-700 rounded-lg appearance-none cursor-pointer accent-[#b86b2f]"
               />
             </div>
           )}
 
-          <button 
+          <button
             onClick={handleSearch}
             disabled={loading}
-            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-5 rounded-2xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-xl shadow-indigo-600/20 disabled:opacity-50 disabled:shadow-none text-lg flex items-center justify-center space-x-2 hover:scale-[1.01] active:scale-[0.99]"
+            className="btn-primary w-full bg-gradient-to-r from-[#243d2d] via-[#4f6f52] to-[#b86b2f] text-[#f8f4ea] font-bold py-5 rounded-2xl transition-all duration-300 shadow-xl shadow-[#4f6f52]/20 disabled:opacity-50 disabled:shadow-none text-lg flex items-center justify-center space-x-2 hover:scale-[1.01] active:scale-[0.99]"
           >
             {loading ? (
               <>
-                <span className="animate-spin text-xl">✨</span>
+                <span className="w-5 h-5 rounded-full border-2 border-[#f8f4ea]/40 border-t-[#f8f4ea] animate-spin"></span>
                 <span>Analysing Multimodal Data...</span>
               </>
             ) : (
