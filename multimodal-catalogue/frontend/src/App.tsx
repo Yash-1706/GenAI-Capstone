@@ -1,4 +1,5 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import SearchPage from './pages/SearchPage';
 import ResultsGrid from './pages/ResultsGrid';
 import ProductDetail from './pages/ProductDetail';
@@ -6,19 +7,10 @@ import AnalyticsDashboard from './pages/AnalyticsDashboard';
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors">
-      <nav className="bg-white border-b border-slate-200 p-4 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link to="/" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
-            Nexus Catalogue
-          </Link>
-          <div className="space-x-4">
-            <Link to="/analytics" className="text-sm font-medium hover:text-indigo-600">Analytics</Link>
-          </div>
-        </div>
-      </nav>
+    <div className="mesh-bg min-h-screen">
+      <Navbar />
       
-      <main className="max-w-6xl mx-auto p-4 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <Routes>
           <Route path="/" element={<SearchPage />} />
           <Route path="/results" element={<ResultsGrid />} />
