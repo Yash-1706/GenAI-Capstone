@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apiClient } from '../api/client';
-import { Product } from '../store/useStore';
-import { Sparkles, Tag, Layers } from 'lucide-react';
+import { type Product } from '../store/useStore';
+import { Sparkles, Layers } from 'lucide-react';
 
 export default function ProductDetail() {
   const { id } = useParams();
