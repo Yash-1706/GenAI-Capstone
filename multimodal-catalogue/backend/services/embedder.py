@@ -47,7 +47,15 @@ class EmbedderService:
         # Returns (512,)
         inputs = self.clip_processor(images=pil_image, return_tensors="pt").to(self.device)
         with torch.no_grad():
-            img_features = self.clip_model.get_image_features(**inputs)
+            img_outputs = self.clip_model.get_image_features(**inputs)
+            if hasattr(img_outputs, "pooler_output"):
+                img_features = img_outputs.pooler_output
+            elif hasattr(img_outputs, "image_embeds"):
+                img_features = img_outputs.image_embeds
+            elif isinstance(img_outputs, torch.Tensor):
+                img_features = img_outputs
+            else:
+                img_features = img_outputs[0]
         img_features = img_features.cpu().numpy().flatten()
         return img_features / np.linalg.norm(img_features)
 

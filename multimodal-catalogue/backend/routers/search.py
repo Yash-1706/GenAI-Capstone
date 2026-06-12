@@ -35,7 +35,7 @@ async def inflate_results(db: AsyncSession, raw_results: list) -> List[SearchRes
         prod = await db.get(ProductModel, r["product_id"])
         if prod:
             p = Product(
-                id=uuid.UUID(prod.id),
+                id=prod.id,
                 sku=prod.sku,
                 name=prod.name,
                 description=prod.description,

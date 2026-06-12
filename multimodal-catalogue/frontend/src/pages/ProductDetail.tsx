@@ -3,11 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { apiClient } from '../api/client';
 import { type Product } from '../store/useStore';
 import { Sparkles, Layers, ArrowLeft, CheckCircle2, Package, Tag as TagIcon, Zap } from 'lucide-react';
+import ProductCard from '../components/ProductCard';
 
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState<Product | null>(null);
+  const [similarProducts, setSimilarProducts] = useState<any[]>([]);
   const [generatingDesc, setGeneratingDesc] = useState(false);
   const [extractingAttrs, setExtractingAttrs] = useState(false);
 
@@ -16,6 +18,9 @@ export default function ProductDetail() {
       try {
         const res = await apiClient.get(`/products/${id}`);
         setProduct(res.data);
+        
+        const simRes = await apiClient.get(`/products/${id}/similar`);
+        setSimilarProducts(simRes.data.results);
       } catch (e) {
         console.error(e);
       }
@@ -161,6 +166,22 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+
+      {similarProducts.length > 0 && (
+        <div className="mt-16 mb-8 animate-fade-in">
+          <h2 className="text-3xl font-display font-black text-[#162321] dark:text-[#f8f4ea] mb-8">You Might Also Like</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {similarProducts.map((res: any) => (
+              <ProductCard 
+                key={res.product.id} 
+                product={res.product} 
+                score={res.score} 
+                onClick={(pid) => navigate(`/product/${pid}`)} 
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

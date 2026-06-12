@@ -6,6 +6,8 @@ from backend.services.llm import llm_service
 from PIL import Image
 import requests
 from io import BytesIO
+from backend.services.retriever import retriever
+from backend.routers.search import inflate_results
 
 router = APIRouter(prefix="/api/products", tags=["products"])
 
@@ -63,3 +65,20 @@ async def extract_attributes(id: str, db: AsyncSession = Depends(get_db)):
     await db.commit()
     
     return {"attributes": attrs}
+
+@router.get("/{id}/similar")
+async def get_similar_products(id: str, db: AsyncSession = Depends(get_db)):
+    prod = await db.get(ProductModel, id)
+    if not prod:
+        raise HTTPException(status_code=404, detail="Product not found")
+        
+    emb = retriever.get_image_embedding_by_id(id)
+    if not emb:
+        return {"results": []}
+        
+    raw = retriever.search_by_image(emb, top_k=6)
+    raw = [r for r in raw if str(r["product_id"]) != str(id)][:4]
+    
+    results = await inflate_results(db, raw)
+    return {"results": results}
+

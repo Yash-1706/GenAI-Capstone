@@ -4,7 +4,7 @@ from uuid import UUID
 from datetime import datetime
 
 class Product(BaseModel):
-    id: UUID
+    id: str
     sku: str
     name: str
     description: Optional[str] = None
@@ -41,8 +41,8 @@ class SeedKeywordsRequest(BaseModel):
     seed_keywords: List[str] = []
 
 class ClickEventRequest(BaseModel):
-    event_id: UUID
-    product_id: UUID
+    event_id: str
+    product_id: str
 
 class AnalyticsSummary(BaseModel):
     total_searches: int

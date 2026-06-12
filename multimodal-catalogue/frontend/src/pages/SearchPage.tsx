@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, UploadCloud, SlidersHorizontal, Image as ImageIcon, Type, Sparkles } from 'lucide-react';
+import { Search, UploadCloud, SlidersHorizontal, Image as ImageIcon, Type, Sparkles, Mic } from 'lucide-react';
 import { apiClient } from '../api/client';
 import { useStore } from '../store/useStore';
 
@@ -18,10 +18,40 @@ export default function SearchPage() {
   const [file, setFile] = useState<File | null>(null);
   const [fusionWeight, setFusionWeight] = useState(0.6);
   const [loading, setLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
   const { setSearchResults } = useStore();
+
+  const startVoiceRecognition = () => {
+    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Your browser does not support Voice Search.");
+      return;
+    }
+    
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    
+    recognition.onstart = () => setIsListening(true);
+    
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setQuery(transcript);
+      setIsListening(false);
+    };
+    
+    recognition.onerror = (event: any) => {
+      console.error(event.error);
+      setIsListening(false);
+    };
+    
+    recognition.onend = () => setIsListening(false);
+    
+    recognition.start();
+  };
 
   const handleSearch = async () => {
     setLoading(true);
@@ -92,9 +122,18 @@ export default function SearchPage() {
                 placeholder={modality === 'combined' ? 'Describe the modifications...' : 'What are you looking for?'}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="smooth-focus w-full pl-14 pr-4 py-5 bg-[#fffaf0] dark:bg-[#0f1b18] border-2 border-transparent focus:border-[#b86b2f]/60 dark:focus:border-[#d79a5f]/60 rounded-2xl text-lg font-medium outline-none placeholder:text-stone-400 dark:text-[#f8f4ea]"
+                className="smooth-focus w-full pl-14 pr-12 py-5 bg-[#fffaf0] dark:bg-[#0f1b18] border-2 border-transparent focus:border-[#b86b2f]/60 dark:focus:border-[#d79a5f]/60 rounded-2xl text-lg font-medium outline-none placeholder:text-stone-400 dark:text-[#f8f4ea]"
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               />
+              <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+                <button 
+                  onClick={startVoiceRecognition}
+                  className={`p-2 rounded-full transition-colors ${isListening ? 'bg-red-500/20 text-red-500' : 'text-stone-400 hover:text-[#b86b2f] hover:bg-stone-200 dark:hover:bg-stone-800'}`}
+                  title="Voice Search"
+                >
+                  <Mic size={20} className={isListening ? 'animate-pulse' : ''} />
+                </button>
+              </div>
             </div>
           )}
 

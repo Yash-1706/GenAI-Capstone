@@ -7,7 +7,7 @@ Pillow
 chromadb
 sqlalchemy[asyncio]
 aiosqlite
-anthropic
+google-generativeai
 python-multipart
 PyYAML
 sentence-transformers

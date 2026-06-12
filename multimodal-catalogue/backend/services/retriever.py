@@ -32,6 +32,13 @@ class RetrieverService:
         )
         
     @staticmethod
+    def get_image_embedding_by_id(product_id: str) -> list:
+        res = image_collection.get(ids=[str(product_id)], include=["embeddings"])
+        if res and res["embeddings"] and len(res["embeddings"]) > 0:
+            return res["embeddings"][0]
+        return None
+
+    @staticmethod
     def search_by_text(query_emb: list, top_k: int, filters: dict = None) -> list:
         results = text_collection.query(
             query_embeddings=[query_emb],
