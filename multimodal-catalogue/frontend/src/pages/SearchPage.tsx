@@ -25,7 +25,7 @@ export default function SearchPage() {
   const { setSearchResults } = useStore();
 
   const startVoiceRecognition = () => {
-    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) {
       alert("Your browser does not support Voice Search.");
       return;
