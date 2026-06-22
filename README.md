@@ -2,7 +2,7 @@
 title: Multimodal Catalogue
 emoji: 🛍️
 colorFrom: green
-colorTo: orange
+colorTo: yellow
 sdk: docker
 pinned: false
 app_port: 7860
