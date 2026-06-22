@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Leaf, BarChart2, Moon, Sun, Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import BackendStatus from './BackendStatus';
 
 function getInitialTheme() {
   return localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -57,9 +58,13 @@ export default function Navbar() {
             </Link>
             
             <div className="w-px h-6 bg-stone-200 dark:bg-stone-700 mx-2"></div>
-            
-            <button 
-              onClick={toggleTheme} 
+
+            <BackendStatus />
+
+            <div className="w-px h-6 bg-stone-200 dark:bg-stone-700 mx-2 hidden lg:block"></div>
+
+            <button
+              onClick={toggleTheme}
               className="p-2 rounded-full text-stone-500 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800 transition-colors duration-300"
               aria-label="Toggle Dark Mode"
             >
