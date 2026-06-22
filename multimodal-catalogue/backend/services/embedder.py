@@ -30,7 +30,8 @@ class EmbedderService:
         self.clip_processor = CLIPProcessor.from_pretrained(config["clip_model"])
         
         # Projection Matrix for combining Text and Image Embeddings
-        self.projection_path = "./projection_matrix.npy"
+        _project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+        self.projection_path = os.path.join(_project_root, "projection_matrix.npy")
         if os.path.exists(self.projection_path):
             self.projection_matrix = np.load(self.projection_path)
         else:

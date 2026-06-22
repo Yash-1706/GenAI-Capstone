@@ -1,8 +1,10 @@
 import chromadb
 from chromadb.config import Settings
 import uuid
+import os
 
-chroma_client = chromadb.PersistentClient(path="./chroma_db")
+_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+chroma_client = chromadb.PersistentClient(path=os.path.join(_PROJECT_ROOT, "chroma_db"))
 
 text_collection = chroma_client.get_or_create_collection(
     name="text_embeddings",

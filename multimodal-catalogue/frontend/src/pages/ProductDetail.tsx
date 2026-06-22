@@ -32,7 +32,7 @@ export default function ProductDetail() {
   const handleGenerateDesc = async () => {
     setGeneratingDesc(true);
     try {
-      const res = await apiClient.post(`/products/${id}/describe`);
+      const res = await apiClient.post(`/products/${id}/describe`, { seed_keywords: [] });
       setProduct(p => p ? { ...p, description: res.data.description, ai_generated: true } : null);
     } catch (e) {
       console.error(e);

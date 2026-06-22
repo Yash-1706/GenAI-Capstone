@@ -1,7 +1,7 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-import asyncio
 
 load_dotenv()
 
@@ -9,7 +9,14 @@ from backend.db.database import init_db
 from backend.routers import search, products, analytics
 from backend.services.embedder import embedder
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()
+    # Forces initialization of models eagerly on startup
+    _ = embedder
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,12 +25,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.on_event("startup")
-async def startup_event():
-    await init_db()
-    # Forces initialization of models eagerly on startup
-    _ = embedder
 
 app.include_router(search.router)
 app.include_router(products.router)

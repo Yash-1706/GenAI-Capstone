@@ -19,6 +19,7 @@ export default function SearchPage() {
   const [fusionWeight, setFusionWeight] = useState(0.6);
   const [loading, setLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
@@ -140,11 +141,23 @@ export default function SearchPage() {
           {(modality === 'image' || modality === 'combined') && (
             <div
               className={`relative border-3 border-dashed rounded-2xl p-10 text-center transition-all duration-300 cursor-pointer stagger-card ${
-                file
-                  ? 'border-[#b86b2f] bg-[#d79a5f]/15 dark:border-[#d79a5f]/70 dark:bg-[#b86b2f]/10'
-                  : 'border-stone-300 dark:border-stone-700 hover:border-[#b86b2f] hover:bg-stone-50 dark:hover:bg-stone-800/50'
+                isDragging
+                  ? 'border-[#4f6f52] bg-[#dbe7dc]/40 dark:border-[#d79a5f] dark:bg-[#b86b2f]/15 scale-[1.02]'
+                  : file
+                    ? 'border-[#b86b2f] bg-[#d79a5f]/15 dark:border-[#d79a5f]/70 dark:bg-[#b86b2f]/10'
+                    : 'border-stone-300 dark:border-stone-700 hover:border-[#b86b2f] hover:bg-stone-50 dark:hover:bg-stone-800/50'
               }`}
               onClick={() => fileInputRef.current?.click()}
+              onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={(e) => {
+                e.preventDefault();
+                setIsDragging(false);
+                const droppedFile = e.dataTransfer.files?.[0];
+                if (droppedFile && droppedFile.type.startsWith('image/')) {
+                  setFile(droppedFile);
+                }
+              }}
             >
               <input
                 type="file"

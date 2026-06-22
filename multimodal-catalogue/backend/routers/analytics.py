@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func, desc
+from sqlalchemy import select, func, desc, Integer
 from backend.db.database import get_db, SearchEventModel
 from backend.models.schemas import ClickEventRequest
 import datetime
@@ -31,7 +31,7 @@ async def get_summary(db: AsyncSession = Depends(get_db)):
         }
 
     # Modality counts
-    modalities = await db.execute(select(SearchEventModel.modality, func.count(), func.sum(func.cast(SearchEventModel.abandoned == False, func.integer()))).group_by(SearchEventModel.modality))
+    modalities = await db.execute(select(SearchEventModel.modality, func.count(), func.sum(func.cast(SearchEventModel.abandoned == False, Integer))).group_by(SearchEventModel.modality))
     ctr_by_modality = {}
     for modality, count, clicks in modalities:
         ctr_by_modality[modality] = (clicks / count) if count > 0 else 0

@@ -3,9 +3,11 @@ from sqlalchemy.orm import declarative_base, Mapped, mapped_column
 from sqlalchemy import String, Float, Boolean, JSON, Integer, DateTime
 import uuid
 from typing import Optional
-from datetime import datetime
+from datetime import datetime, timezone
+import os
 
-DATABASE_URL = "sqlite+aiosqlite:///./catalogue.db"
+_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+DATABASE_URL = f"sqlite+aiosqlite:///{os.path.join(_PROJECT_ROOT, 'catalogue.db')}"
 
 engine = create_async_engine(DATABASE_URL, echo=False)
 AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
@@ -38,7 +40,7 @@ class SearchEventModel(Base):
     clicked_product_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True)
     abandoned: Mapped[bool] = mapped_column(Boolean, default=True)
     latency_ms: Mapped[int] = mapped_column(Integer)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
 
 async def init_db():
     async with engine.begin() as conn:

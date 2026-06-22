@@ -33,7 +33,7 @@ def fetch_image_from_url(url: str) -> Image.Image:
     try:
         response = requests.get(url, timeout=10)
         return Image.open(BytesIO(response.content)).convert("RGB")
-    except:
+    except Exception:
         return Image.new("RGB", (400, 400), color=(255,255,255))
 
 @router.post("/{id}/describe")

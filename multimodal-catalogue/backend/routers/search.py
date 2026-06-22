@@ -9,6 +9,7 @@ from backend.services.retriever import retriever
 from backend.db.database import get_db, SearchEventModel, ProductModel
 from sqlalchemy.ext.asyncio import AsyncSession
 import time
+import math
 from sentence_transformers import CrossEncoder
 
 router = APIRouter(prefix="/api/search", tags=["search"])
@@ -62,7 +63,7 @@ async def search_text(req: SearchRequestText, db: AsyncSession = Depends(get_db)
         pairs = [[req.query, f"{r.product.name} {r.product.description}"] for r in results]
         scores = cross_encoder.predict(pairs)
         for r, score in zip(results, scores):
-            r.score = float(score)
+            r.score = 1 / (1 + math.exp(-float(score)))  # sigmoid to normalize logits to 0-1
         
         results.sort(key=lambda x: x.score, reverse=True)
     

@@ -43,7 +43,7 @@ flowchart LR
   API --> Retriever["Vector Retriever"]
   API --> Analytics["SQLite Analytics DB"]
   API --> Products["SQLite Product DB"]
-  API --> LLM["Anthropic LLM Service"]
+  API --> LLM["Gemini LLM Service"]
   Retriever --> VectorDB["Local Vector Store"]
   Products --> Catalogue["data/products.json"]
 ```
@@ -52,7 +52,7 @@ The application is split into three major layers:
 
 - Frontend: React, TypeScript, Vite, Tailwind CSS, Zustand, Recharts, and Lucide icons.
 - Backend API: FastAPI, Pydantic, async SQLAlchemy, Uvicorn, and Python service modules.
-- AI and storage: CLIP image embeddings, sentence-transformer text embeddings, cross-encoder reranking, Anthropic LLM calls, local vector storage, and SQLite analytics.
+- AI and storage: CLIP image embeddings, sentence-transformer text embeddings, cross-encoder reranking, Gemini LLM calls, local vector storage, and SQLite analytics.
 
 ## Technology Stack
 
@@ -62,7 +62,7 @@ The application is split into three major layers:
 | Backend | Python, FastAPI, Pydantic, SQLAlchemy async, Uvicorn |
 | Embeddings | `openai/clip-vit-base-patch32`, `sentence-transformers/all-MiniLM-L6-v2` |
 | Reranking | `cross-encoder/ms-marco-MiniLM-L-6-v2` |
-| LLM features | Anthropic Claude through `ANTHROPIC_API_KEY` |
+| LLM features | Google Gemini 2.5 Flash through `GEMINI_API_KEY` |
 | Data | JSON catalogue, local vector store, SQLite database |
 | Tests | Pytest |
 
@@ -108,14 +108,14 @@ multimodal-catalogue/
 - Node.js 18 or newer.
 - npm.
 - Git.
-- An Anthropic API key for LLM-powered descriptions and attribute extraction.
+- A Google Gemini API key for LLM-powered descriptions and attribute extraction.
 
 ## Environment Variables
 
 Create a `.env` file in the project root:
 
 ```env
-ANTHROPIC_API_KEY=your_anthropic_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 The frontend API client currently points to:
@@ -314,7 +314,7 @@ npm run lint
 - If model loading is slow, wait for the first backend startup or ingestion run to finish; transformer models can take time to initialize.
 - If search returns no data, rerun ingestion and confirm `data/products.json` exists.
 - If the frontend cannot reach the API, confirm FastAPI is running on `http://localhost:8000` and check `frontend/src/api/client.ts`.
-- If LLM features fail, confirm `ANTHROPIC_API_KEY` is present in `.env`.
+- If LLM features fail, confirm `GEMINI_API_KEY` is present in `.env`.
 - If image upload search fails, verify the backend dependencies installed correctly, especially Pillow and the model libraries.
 
 ## Contributing

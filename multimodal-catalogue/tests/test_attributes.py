@@ -4,16 +4,16 @@ from PIL import Image
 from backend.services.llm import llm_service
 
 @pytest.fixture(autouse=True)
-def setup_llm_client():
-    # Ensure llm_service.client is not None during tests
-    if llm_service.client is None:
-        llm_service.client = MagicMock()
+def setup_llm_model():
+    # Ensure llm_service.model is not None during tests
+    if llm_service.model is None:
+        llm_service.model = MagicMock()
 
 def test_attribute_extraction_has_all_keys():
-    with patch.object(llm_service, "client") as mock_client:
-        mock_msg = MagicMock()
-        mock_msg.content = [MagicMock(text='{"colour": "red", "style": "modern", "material": "wood", "shape": "round"}')]
-        mock_client.messages.create.return_value = mock_msg
+    with patch.object(llm_service, "model") as mock_model:
+        mock_response = MagicMock()
+        mock_response.text = '{"colour": "red", "style": "modern", "material": "wood", "shape": "round"}'
+        mock_model.generate_content.return_value = mock_response
         
         img = Image.new("RGB", (400, 400), color=(255, 0, 0))
         result = llm_service.extract_attributes(img)
@@ -24,13 +24,13 @@ def test_attribute_extraction_has_all_keys():
         assert "shape" in result
 
 def test_description_length():
-    with patch.object(llm_service, "client") as mock_client:
+    with patch.object(llm_service, "model") as mock_model:
         # Create a description with 60 words
         desc_text = " ".join(["word"] * 60)
         
-        mock_msg = MagicMock()
-        mock_msg.content = [MagicMock(text=desc_text)]
-        mock_client.messages.create.return_value = mock_msg
+        mock_response = MagicMock()
+        mock_response.text = desc_text
+        mock_model.generate_content.return_value = mock_response
         
         img = Image.new("RGB", (400, 400), color=(255, 0, 0))
         result = llm_service.generate_description(img, seed_keywords=["test"])
