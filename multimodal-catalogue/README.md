@@ -218,6 +218,25 @@ http://localhost:5173
 
 Returns a simple API status response.
 
+`GET /health`
+
+Liveness probe for container orchestration (Docker `HEALTHCHECK`, Hugging Face
+Spaces). Dependency-light — it does not touch the AI stack — so it stays fast and
+never blocks on model initialization.
+
+```json
+{
+  "status": "ok",
+  "service": "multimodal-catalogue",
+  "uptime_seconds": 12.34
+}
+```
+
+`GET /health/ready`
+
+Readiness probe. Same liveness signal plus uptime, useful as a deploy/rollout
+gate. Returns `"status": "ready"`.
+
 ### Search
 
 `POST /api/search/text`

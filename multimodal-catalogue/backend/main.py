@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from backend.db.database import init_db
-from backend.routers import search, products, analytics
+from backend.routers import search, products, analytics, health
 from backend.services.embedder import embedder
 
 @asynccontextmanager
@@ -26,6 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(health.router)
 app.include_router(search.router)
 app.include_router(products.router)
 app.include_router(analytics.router)
