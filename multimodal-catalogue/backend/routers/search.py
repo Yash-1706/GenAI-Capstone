@@ -66,6 +66,8 @@ async def search_text(req: SearchRequestText, db: AsyncSession = Depends(get_db)
             r.score = 1 / (1 + math.exp(-float(score)))  # sigmoid to normalize logits to 0-1
         
         results.sort(key=lambda x: x.score, reverse=True)
+        # Filter out low relevance results
+        results = [r for r in results if r.score >= 0.15]
     
     final_res = results[:req.top_k]
     
@@ -84,6 +86,7 @@ async def search_image(image: UploadFile = File(...), top_k: int = Form(10), db:
     
     raw = retriever.search_by_image(emb, top_k=top_k)
     results = await inflate_results(db, raw)
+    results = [r for r in results if r.score >= 0.15]
     
     ms = int((time.time() - start) * 1000)
     evt_id = await log_search(db, "image", count=len(results), ms=ms)
@@ -106,6 +109,7 @@ async def search_combined(
     
     raw = retriever.search_combined(emb, top_k=top_k)
     results = await inflate_results(db, raw)
+    results = [r for r in results if r.score >= 0.15]
     
     ms = int((time.time() - start) * 1000)
     evt_id = await log_search(db, "combined", query, len(results), ms)

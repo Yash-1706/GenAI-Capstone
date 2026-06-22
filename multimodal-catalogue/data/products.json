@@ -178,5 +178,41 @@
     "category": "sports",
     "price": 130.00,
     "image_urls": ["https://picsum.photos/seed/SPORT-004/400/400"]
+  },
+  {
+    "id": "c1d2e3f4-g5h6-4a5b-8c7d-9e0f1a2b3c4d",
+    "sku": "CLOT-005",
+    "name": "Classic White T-Shirt",
+    "description": "Essential 100% cotton crewneck t-shirt. Breathable and comfortable for everyday wear.",
+    "category": "clothing",
+    "price": 25.00,
+    "image_urls": ["https://picsum.photos/seed/CLOT-005/400/400"]
+  },
+  {
+    "id": "d2e3f4g5-h6i7-5b6c-9d0e-1f2a3b4c5d6e",
+    "sku": "CLOT-006",
+    "name": "Flannel Checkered Shirt",
+    "description": "Warm red and black checkered flannel shirt. Button-up, long sleeve, perfect for autumn.",
+    "category": "clothing",
+    "price": 45.00,
+    "image_urls": ["https://picsum.photos/seed/CLOT-006/400/400"]
+  },
+  {
+    "id": "e3f4g5h6-i7j8-6c7d-0e1f-2a3b4c5d6e7f",
+    "sku": "CLOT-007",
+    "name": "Minimalist Running Shoes",
+    "description": "Zero-drop lightweight running shoes in matte black. Flexible sole for natural foot movement.",
+    "category": "clothing",
+    "price": 120.00,
+    "image_urls": ["https://picsum.photos/seed/CLOT-007/400/400"]
+  },
+  {
+    "id": "f4g5h6i7-j8k9-7d8e-1f2a-3b4c5d6e7f8a",
+    "sku": "CLOT-008",
+    "name": "Athletic Hoodie",
+    "description": "Grey heather fleece pullover hoodie with front pocket and drawstring. Great for workouts or lounging.",
+    "category": "clothing",
+    "price": 55.00,
+    "image_urls": ["https://picsum.photos/seed/CLOT-008/400/400"]
   }
 ]
