@@ -1,0 +1,5 @@
+multimodal-catalogue/frontend
+multimodal-catalogue/venv
+.git
+__pycache__
+*.pyc
