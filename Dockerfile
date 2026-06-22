@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 # Set working directory
 WORKDIR /app
+RUN chown user:user /app
 
 # Switch to the non-root user
 USER user
